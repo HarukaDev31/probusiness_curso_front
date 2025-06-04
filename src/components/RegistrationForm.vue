@@ -49,8 +49,16 @@ const isEmailValid = computed(() => {
 
 const validateField = (field: string): boolean => {
   errors.value[field as keyof typeof errors.value] = ''
+  if(!showExtraSelects.value && (field === 'department' || field === 'province' || field === 'district')) {
+    // Skip validation for department, province, and district if extra selects are not shown
+    return true
+  }
+  console.log('Validating field:', field)
+  if (!formData.value[field as keyof typeof formData.value]
+    || (field === 'province' && !showExtraSelects.value)
+    || (field === 'district' && !showExtraSelects.value)
 
-  if (!formData.value[field as keyof typeof formData.value]) {
+  ) {
     errors.value[field as keyof typeof errors.value] = 'Este campo es obligatorio'
     return false
   }
@@ -192,15 +200,17 @@ const getDistricts = async (province: string) => {
   }
 }
 const handleSubmit = async () => {
-  if (!validateForm()) {
+  if (validateForm()) {
     if (formRef.value) {
+     
+
       formRef.value.classList.add('animate-shake')
       try {
         const data = await MainService.crearUsuario(formData.value)
         isSubmitting.value = true
 
         formRef.value?.classList.remove('animate-shake')
-        if(data.status === 'success') {
+        if (data.status === 'success') {
           isSuccess.value = true
           toast.success('Usuario creado exitosamente', {
             position: 'top-right',
@@ -247,11 +257,22 @@ const setFocusedField = (field: string | null) => {
 // Auto animation on mount
 const isVisible = ref(false)
 onBeforeMount(async () => {
-  const data = await MainService.getPaises();
-  countries = [...data.map(country => ({ value: country.value.toString(), label: country.label }))]
-  setTimeout(() => {
-    isVisible.value = true
-  }, 100)
+  try {
+    const data = await MainService.getPaises();
+    countries = [...data.map(country => ({ value: country.value.toString(), label: country.label }))]
+    setTimeout(() => {
+      isVisible.value = true
+    }, 100)
+  }
+  catch (error) {
+    console.error('Error fetching countries:', error)
+    toast.error('Ocurrió un error al cargar los países', {
+      position: 'top-right',
+    })
+    setTimeout(() => {
+      isVisible.value = true
+    }, 100)
+  }
 })
 </script>
 

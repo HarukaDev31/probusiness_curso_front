@@ -3,7 +3,7 @@ import RegistrationForm from './components/RegistrationForm.vue'
 </script>
 
 <template>
-  <div class="min-h-screen bg-gradient-to-br from-primary-50 via-white to-primary-100 flex flex-col">
+  <div class="min-h-screen bg-gradient-to-br from-primary-50 via-white to-primary-100 flex flex-col" style="width: 100vw;">
     <!-- Main content -->
     <div class="flex-grow flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8 relative overflow-hidden">
       <!-- Decorative elements -->
@@ -26,7 +26,7 @@ import RegistrationForm from './components/RegistrationForm.vue'
         <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
           <!-- Logo and copyright -->
           <div class="col-span-1">
-            <img src="/image.png" alt="Logo" class="h-8 w-auto mb-4" />
+            <img src="/src/assets/logo_probusiness.png" alt="Logo" class="h-20 w-full mb-4" />
             <p class="text-sm text-gray-600">© 2017 – 2025</p>
           </div>
 
@@ -44,10 +44,10 @@ import RegistrationForm from './components/RegistrationForm.vue'
           <div>
             <h3 class="text-sm font-semibold text-gray-900 mb-4">Redes Sociales</h3>
             <ul class="space-y-3">
-              <li><a href="#" class="text-gray-600 hover:text-primary-600 transition-colors">TikTok</a></li>
-              <li><a href="#" class="text-gray-600 hover:text-primary-600 transition-colors">Instagram</a></li>
-              <li><a href="#" class="text-gray-600 hover:text-primary-600 transition-colors">Facebook</a></li>
-              <li><a href="#" class="text-gray-600 hover:text-primary-600 transition-colors">Youtube</a></li>
+              <li><a href="https://www.tiktok.com/@pro_business_impo" class="text-gray-600 hover:text-primary-600 transition-colors">TikTok</a></li>
+              <li><a href="https://www.instagram.com/probusinesspe/" class="text-gray-600 hover:text-primary-600 transition-colors">Instagram</a></li>
+              <li><a href="https://www.facebook.com/Probusinesspe" class="text-gray-600 hover:text-primary-600 transition-colors">Facebook</a></li>
+              <li><a href="https://www.youtube.com/@MiguelVillegasImportaciones" class="text-gray-600 hover:text-primary-600 transition-colors">Youtube</a></li>
             </ul>
           </div>
 
@@ -57,7 +57,7 @@ import RegistrationForm from './components/RegistrationForm.vue'
             <ul class="space-y-3">
               <li class="text-gray-600">(+51) 932 531 441</li>
               <li><a href="mailto:info@probusiness.pe" class="text-gray-600 hover:text-primary-600 transition-colors">info@probusiness.pe</a></li>
-              <li class="text-gray-600">Alberto Barton 527 - La Victoria - Perú</li>
+              <li class="text-gray-600"><a  target="_blank" href="https://www.google.com/maps/place/Pro+Business/@-12.0871203,-77.0259597,17z/data=!3m1!4b1!4m6!3m5!1s0x9105c9fc7d02b083:0x83baa0115c4cc866!8m2!3d-12.0871256!4d-77.0233848!16s%2Fg%2F11hyhx8q6j?hl=es-419&entry=tts"> Barton 527 - La Victoria - Perú </a></li>
             </ul>
           </div>
         </div>
