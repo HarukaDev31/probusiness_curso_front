@@ -228,6 +228,7 @@ const handleSubmit = async () => {
             department: '',
             province: '',
             district: '',
+            referralSource: ''
           }
         }
       } catch (error) {

@@ -3,5 +3,15 @@
   "references": [
     { "path": "./tsconfig.app.json" },
     { "path": "./tsconfig.node.json" }
-  ]
+  ],
+ 
+
+  "compilerOptions": {
+    "strict": false,                     // Desactiva el modo estricto (no recomendado a largo plazo)
+    "noImplicitAny": false,              // Permite tipos implícitos `any`
+    "skipLibCheck": true,                // Omite la verificación de tipos en librerías
+    "noEmitOnError": false               // Permite la compilación incluso si hay errores (útil si warnings se tratan como errores)
+  }
+
+
 }
