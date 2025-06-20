@@ -49,7 +49,7 @@ const isEmailValid = computed(() => {
 
 const validateField = (field: string): boolean => {
   errors.value[field as keyof typeof errors.value] = ''
-  if(!showExtraSelects.value && (field === 'department' || field === 'province' || field === 'district')) {
+  if (!showExtraSelects.value && (field === 'department' || field === 'province' || field === 'district')) {
     // Skip validation for department, province, and district if extra selects are not shown
     return true
   }
@@ -202,7 +202,7 @@ const getDistricts = async (province: string) => {
 const handleSubmit = async () => {
   if (validateForm()) {
     if (formRef.value) {
-     
+
 
       formRef.value.classList.add('animate-shake')
       try {
@@ -278,23 +278,24 @@ onBeforeMount(async () => {
 </script>
 
 <template>
-  <div class="w-full max-w-3xl mx-auto px-4 py-6">
-    <div class="bg-white/80 backdrop-blur-xl rounded-2xl shadow-xl overflow-hidden transition-all duration-700"
+  <div class="w-full max-w-5xl mx-auto px-4  ">
+    <div class="bg-white  shadow-xl overflow-hidden transition-all duration-700 "
       :class="[isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8']">
-      <div class="py-8 px-8 bg-gradient-to-r from-primary-600 to-primary-500">
-        <h2 class="text-3xl font-bold text-white mb-2 flex items-center gap-3">
-          <User class="w-8 h-8" />
-          Regístrate
-        </h2>
-        <p class="text-primary-50 opacity-90">Completa el formulario para crear tu cuenta</p>
-      </div>
+      <div class="flex flex-row gap-2 items-center pt-10 px-10  border-b border-gray-200">
+        <div class="w-1/2 ">
+          <h2 class="text-3xl font-semibold text-black mb-2 flex items-center gap-3">
+            Regístrate
+          </h2>
+          <span>Ingresa tus datos para crear cuenta</span>
+          <p class="text-primary-50 opacity-90">Completa el formulario para crear tu cuenta</p>
+        </div>
 
-      <!-- Progress indicator -->
-      <div class="px-8 pt-6">
-        <ProgressBar :progress="formProgress" />
-        <p class="text-sm text-gray-600 mt-1">{{ formProgress }}% completado</p>
+        <!-- Progress indicator -->
+        <div class="w-1/2">
+          <ProgressBar :progress="formProgress" />
+          <p class="text-sm text-gray-600 mt-1">{{ formProgress }}% completado</p>
+        </div>
       </div>
-
       <form ref="formRef" @submit.prevent="handleSubmit" class="px-8 py-6 space-y-6">
         <!-- First row: Email and Phone -->
         <div class="grid md:grid-cols-2 gap-6">
