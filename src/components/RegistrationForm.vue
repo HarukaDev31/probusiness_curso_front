@@ -22,7 +22,8 @@ const formData = ref({
   country: '',
   department: '',
   province: '',
-  district: ''
+  district: '',
+  age: ''
 })
 
 // Validation state
@@ -38,7 +39,8 @@ const errors = ref({
   country: '',
   department: '',
   province: '',
-  district: ''
+  district: '',
+  age: ''
 })
 
 // Form validation
@@ -70,6 +72,10 @@ const validateField = (field: string): boolean => {
 
   if (field === 'documentNumber' && !/^\d+$/.test(formData.value.documentNumber)) {
     errors.value.documentNumber = 'Solo se permiten números'
+    return false
+  }
+  if (field === 'age' && !/^\d+$/.test(formData.value.age)) {
+    errors.value.age = 'Solo se permiten números'
     return false
   }
 
@@ -341,7 +347,12 @@ onBeforeMount(async () => {
               @focus="setFocusedField('birthDate')" @blur="setFocusedField(null); validateField('birthDate')"
               :is-focused="focusedField === 'birthDate'" class="" />
           </div>
-
+          <!--add age input-->
+          <div class="relative">
+            <InputField id="age" v-model="formData.age" label="Edad" type="number" placeholder="Ingresa tu edad"
+              :error="errors.age" @focus="setFocusedField('age')" @blur="setFocusedField(null); validateField('age')"
+              :is-focused="focusedField === 'age'" class="" />
+          </div>
           <div class="relative">
             <div class="">
               <label class="form-label">Sexo</label>
