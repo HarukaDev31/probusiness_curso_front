@@ -281,35 +281,37 @@ onBeforeMount(async () => {
   <div class="w-full max-w-5xl mx-auto px-4  ">
     <div class="bg-white  shadow-xl overflow-hidden transition-all duration-700 "
       :class="[isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8']">
-      <div class="flex flex-row gap-2 items-center pt-10 px-10  border-b border-gray-200">
-        <div class="w-1/2 ">
+      <div class="flex flex-col md:flex-row gap-2 items-center pt-10 px-10 pb-4 border-b border-gray-200">
+        <div class="w-full md:w-1/2">
           <h2 class="text-3xl font-semibold text-black mb-2 flex items-center gap-3">
             Regístrate
           </h2>
           <span>Ingresa tus datos para crear cuenta</span>
-          <p class="text-primary-50 opacity-90">Completa el formulario para crear tu cuenta</p>
         </div>
 
         <!-- Progress indicator -->
-        <div class="w-1/2">
+        <div class="w-full md:w-1/2">
           <ProgressBar :progress="formProgress" />
           <p class="text-sm text-gray-600 mt-1">{{ formProgress }}% completado</p>
         </div>
       </div>
       <form ref="formRef" @submit.prevent="handleSubmit" class="px-8 py-6 space-y-6">
+        <div class="relative">
+          <InputField id="fullName" v-model="formData.fullName" label="Nombres y Apellidos"
+            placeholder="Ingresa tu nombre completo" :error="errors.fullName" @focus="setFocusedField('fullName')"
+            @blur="setFocusedField(null); validateField('fullName')" :is-focused="focusedField === 'fullName'"
+            class="" />
+        </div>
         <!-- First row: Email and Phone -->
         <div class="grid md:grid-cols-2 gap-6">
           <div class="relative">
-            <Mail class="absolute left-3 top-[2.1rem] w-5 h-5 text-gray-400" />
-            <InputField id="email" v-model="formData.email" label="Email" type="email" placeholder="correo@ejemplo.com"
+            <InputField id="email" v-model="formData.email" label="Correo" type="email" placeholder="correo@ejemplo.com"
               :error="errors.email" @focus="setFocusedField('email')"
-              @blur="setFocusedField(null); validateField('email')" :is-focused="focusedField === 'email'"
-              class="pl-10" />
+              @blur="setFocusedField(null); validateField('email')" :is-focused="focusedField === 'email'" class="" />
           </div>
 
           <div class="relative">
-            <Phone class="absolute left-3 top-[2.1rem] w-5 h-5 text-gray-400" />
-            <PhoneInput id="phone" v-model="formData.phone" label="Celular" :error="errors.phone"
+            <PhoneInput id="phone" v-model="formData.phone" label="Whatsapp" :error="errors.phone"
               @focus="setFocusedField('phone')" @blur="setFocusedField(null); validateField('phone')"
               :is-focused="focusedField === 'phone'" />
           </div>
@@ -318,43 +320,30 @@ onBeforeMount(async () => {
         <!-- Second row: Document type and number -->
         <div class="grid md:grid-cols-2 gap-6">
           <div class="relative">
-            <FileText class="absolute left-3 top-[2.1rem] w-5 h-5 text-gray-400" />
-            <SelectField id="documentType" v-model="formData.documentType" label="T. Doc. Ident."
+            <SelectField id="documentType" v-model="formData.documentType" label="Tipo de documento"
               :options="documentTypes" placeholder="- Seleccionar -" :error="errors.documentType"
               @focus="setFocusedField('documentType')" @blur="setFocusedField(null); validateField('documentType')"
-              :is-focused="focusedField === 'documentType'" class="pl-10" />
+              :is-focused="focusedField === 'documentType'" class="" />
           </div>
 
           <div class="relative">
-            <FileText class="absolute left-3 top-[2.1rem] w-5 h-5 text-gray-400" />
-            <InputField id="documentNumber" v-model="formData.documentNumber" label="Nro. Doc. Ident."
+            <InputField id="documentNumber" v-model="formData.documentNumber" label="Número de documento"
               placeholder="Ingresa tu número de documento" :error="errors.documentNumber"
               @focus="setFocusedField('documentNumber')" @blur="setFocusedField(null); validateField('documentNumber')"
-              :is-focused="focusedField === 'documentNumber'" class="pl-10" />
+              :is-focused="focusedField === 'documentNumber'" class="" />
           </div>
         </div>
 
-        <!-- Full name -->
-        <div class="relative">
-          <User class="absolute left-3 top-[2.1rem] w-5 h-5 text-gray-400" />
-          <InputField id="fullName" v-model="formData.fullName" label="Nombres y Apellidos"
-            placeholder="Ingresa tu nombre completo" :error="errors.fullName" @focus="setFocusedField('fullName')"
-            @blur="setFocusedField(null); validateField('fullName')" :is-focused="focusedField === 'fullName'"
-            class="pl-10" />
-        </div>
 
-        <!-- Third row: Birth date and Gender -->
         <div class="grid md:grid-cols-2 gap-6">
           <div class="relative">
-            <Calendar class="absolute left-3 top-[2.1rem] w-5 h-5 text-gray-400" />
             <DatePicker id="birthDate" v-model="formData.birthDate" label="F. Nacimiento" :error="errors.birthDate"
               @focus="setFocusedField('birthDate')" @blur="setFocusedField(null); validateField('birthDate')"
-              :is-focused="focusedField === 'birthDate'" class="pl-10" />
+              :is-focused="focusedField === 'birthDate'" class="" />
           </div>
 
           <div class="relative">
-            <Users class="absolute left-3 top-[2.1rem] w-5 h-5 text-gray-400" />
-            <div class="pl-10">
+            <div class="">
               <label class="form-label">Sexo</label>
               <RadioGroup v-model="formData.gender" :options="genderOptions" name="gender" :error="errors.gender"
                 @focus="setFocusedField('gender')" @blur="setFocusedField(null); validateField('gender')" />
@@ -364,42 +353,51 @@ onBeforeMount(async () => {
 
         <!-- Referral source -->
         <div class="relative">
-          <Share2 class="absolute left-3 top-[2.1rem] w-5 h-5 text-gray-400" />
-          <div class="pl-10">
-            <label class="form-label">¿Cómo te enteraste de nosotros?</label>
-            <RadioGroup v-model="formData.referralSource" :options="referralOptions" name="referralSource"
+          <div class="">
+            <SelectField id="referralSource" v-model="formData.referralSource"
+              label="¿Cómo te enteraste de Probusiness?" :options="referralOptions" placeholder="- Seleccionar -"
               :error="errors.referralSource" @focus="setFocusedField('referralSource')"
-              @blur="setFocusedField(null); validateField('referralSource')" column />
+              @blur="setFocusedField(null); validateField('referralSource')" column
+              :is-focused="focusedField === 'referralSource'" class="" />
+            <!-- <RadioGroup v-model="formData.referralSource" :options="referralOptions" name="referralSource"
+              :error="errors.referralSource" @focus="setFocusedField('referralSource')"
+              @blur="setFocusedField(null); validateField('referralSource')" column /> -->
           </div>
         </div>
 
         <!-- Country -->
         <div class="relative">
-          <Globe class="absolute left-3 top-[2.1rem] w-5 h-5 text-gray-400" />
           <SelectField id="country" v-model="formData.country" label="País" :options="countries"
             placeholder="- Seleccionar -" :error="errors.country" @focus="setFocusedField('country')"
             @update:modelValue="getDepartments($event)" @blur="setFocusedField(null); validateField('country')"
-            :is-focused="focusedField === 'country'" class="pl-10" />
+            :is-focused="focusedField === 'country'" class="" />
         </div>
         <div v-if="showExtraSelects" class="grid md:grid-cols-3 gap-6">
           <div class="relative">
             <SelectField id="department" v-model="formData.department" label="Departamento" :options="departments"
               placeholder="- Seleccionar -" :error="errors.department" @update:modelValue="getProvinces($event)"
               @focus="setFocusedField('department')" @blur="setFocusedField(null); validateField('department')"
-              :is-focused="focusedField === 'department'" class="pl-10" />
+              :is-focused="focusedField === 'department'" class="" />
           </div>
           <div class="relative">
             <SelectField id="province" v-model="formData.province" label="Provincia" :options="provinces"
               placeholder="- Seleccionar -" :error="errors.province" @update:modelValue="getDistricts($event)"
               @focus="setFocusedField('province')" @blur="setFocusedField(null); validateField('province')"
-              :is-focused="focusedField === 'province'" class="pl-10" />
+              :is-focused="focusedField === 'province'" class="" />
           </div>
           <div class="relative">
             <SelectField id="district" v-model="formData.district" label="Distrito" :options="districts"
               placeholder="- Seleccionar -" :error="errors.district" @focus="setFocusedField('district')"
               @blur="setFocusedField(null); validateField('district')" :is-focused="focusedField === 'district'"
-              class="pl-10" />
+              class="" />
           </div>
+
+        </div>
+        <div class="text-xs text-gray-500 mt-2 relative">
+          Al crear tu cuenta aceptas nuestra <a class="text-blue-500 hover:underline"
+            href="https://probusiness.pe/terminos-y-condiciones" target="_blank">política de privacidad</a> y
+          <a class="text-blue-500 hover:underline" href="https://probusiness.pe/terminos-y-condiciones"
+            target="_blank">términos y condiciones</a>.
         </div>
         <!-- Submit button -->
         <button type="submit" class="btn-primary w-full py-3 flex justify-center items-center group gap-2"

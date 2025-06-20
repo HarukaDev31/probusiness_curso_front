@@ -5,7 +5,9 @@ import RegistrationForm from './components/RegistrationForm.vue'
 <template>
   <div class="min-h-screen  flex flex-col background" >
     <!-- Main content -->
-    <div class="flex-grow flex py-12 px-4 sm:px-6 lg:px-8 relative overflow-hidden self-end">
+    <div class="flex-grow flex py-12 px-4 sm:px-6 lg:px-8 relative overflow-hidden self-end"
+    style="max-width: 800px;display: flex;width: 100%;align-items: flex-end;justify-content: right;"
+    >
       <!-- Decorative elements -->
       <div class="absolute top-0 left-0 w-full h-full pointer-events-none">
         <div class="absolute top-20 left-20 w-64 h-64 bg-primary-200/30 rounded-full mix-blend-multiply filter blur-3xl animate-pulse"></div>
