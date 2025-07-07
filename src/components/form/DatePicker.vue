@@ -89,8 +89,16 @@ const isToday = (day: number) => {
 }
 
 const handleDayClick = (day: number) => {
-  const date = new Date(currentMonth.value.getFullYear(), currentMonth.value.getMonth(), day)
-  selectedDate.value = date.toISOString().split('T')[0]
+  const year = currentMonth.value.getFullYear()
+  const month = currentMonth.value.getMonth()
+  const date = new Date(year, month, day)
+  
+  // Formatear la fecha como YYYY-MM-DD sin conversión a UTC
+  const yearStr = date.getFullYear().toString()
+  const monthStr = (date.getMonth() + 1).toString().padStart(2, '0')
+  const dayStr = date.getDate().toString().padStart(2, '0')
+  selectedDate.value = `${yearStr}-${monthStr}-${dayStr}`
+  
   emit('update:modelValue', selectedDate.value)
   showPicker.value = false
   showYearSelector.value = true
@@ -110,7 +118,11 @@ const selectMonth = (monthIndex: number) => {
 
 const formatDisplayDate = (dateString: string) => {
   if (!dateString) return ''
-  const date = new Date(dateString)
+  
+  // Crear la fecha usando la zona horaria local para evitar problemas de UTC
+  const [year, month, day] = dateString.split('-').map(Number)
+  const date = new Date(year, month - 1, day)
+  
   return date.toLocaleDateString('es', { 
     day: '2-digit',
     month: 'long', 
